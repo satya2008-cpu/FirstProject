@@ -1,0 +1,322 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>College Desk - Login & Signup</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Ms+Madi&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      min-height: 100vh;
+      background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('image2.jpg');
+      background-size: cover;
+      background-position: center;
+      font-family: 'Montserrat', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .container {
+      background: rgba(255,255,255,0.95);
+      border-radius: 30px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+      padding: 40px;
+      max-width: 450px;
+      width: 100%;
+      position: relative;
+    }
+    .logo {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .logo h1 {
+      font-family: 'Ms Madi', cursive;
+      font-size: 60px;
+      background: linear-gradient(135deg, #e77fdf, #8f2d62);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+    .tab-btn {
+      padding: 15px 30px;
+      border: 2px solid #e77fdf;
+      background: white;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+      margin: 0 10px;
+    }
+    .tab-btn.active {
+      background: linear-gradient(135deg, #e77fdf, #d16f9a);
+      color: white;
+      transform: translateY(-2px);
+    }
+    .forms-container {
+      position: relative;
+    }
+    .form {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    .form.active {
+      opacity: 1;
+      visibility: visible;
+      position: relative;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #8f2d62;
+      font-weight: 600;
+    }
+    input {
+      width: 100%;
+      padding: 15px;
+      border: 2px solid rgba(231,127,223,0.4);
+      border-radius: 20px;
+      font-size: 16px;
+      transition: all 0.3s;
+      background: white;
+    }
+    input:focus {
+      outline: none;
+      border-color: #e77fdf;
+      box-shadow: 0 0 0 3px rgba(231,127,223,0.2);
+    }
+    .btn {
+      width: 100%;
+      padding: 18px;
+      background: linear-gradient(135deg, #e77fdf, #d16f9a);
+      color: white;
+      border: none;
+      border-radius: 25px;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 10px;
+      box-shadow: 0 10px 30px rgba(231,127,223,0.4);
+      transition: all 0.3s;
+    }
+    .btn:hover:not(:disabled) {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(231,127,223,0.6);
+    }
+    .status {
+      display: none;
+      padding: 12px;
+      margin-top: 15px;
+      border-radius: 15px;
+      text-align: center;
+      font-weight: 500;
+    }
+    .status.success {
+      background: rgba(40,167,69,0.2);
+      color: #28a745;
+      border: 1px solid rgba(40,167,69,0.3);
+    }
+    .status.error {
+      background: rgba(220,53,69,0.2);
+      color: #dc3545;
+      border: 1px solid rgba(220,53,69,0.3);
+    }
+    .forgot {
+      text-align: center;
+      margin-top: 20px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .forgot.show {
+      opacity: 1;
+    }
+    .forgot a {
+      color: #e77fdf;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    @media (max-width: 480px) {
+      .logo h1 { font-size: 40px; }
+      .tabs { flex-direction: column; }
+      .tab-btn { margin: 5px 0; }
+      .container { padding: 30px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <h1>College Desk</h1>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="showTab('signup')">Sign Up</button>
+      <button class="tab-btn" onclick="showTab('login')">Login</button>
+    </div>
+
+    <div class="forms-container">
+      <!-- Signup Form (NO forgot password) -->
+      <form id="signup-form" class="form active">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="signup-name" placeholder="Enter your full name" required>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="signup-email" placeholder="your.email@example.com" required>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="signup-password" placeholder="Min 6 characters" required minlength="6">
+        </div>
+        <button type="submit" class="btn">Create Account</button>
+      </form>
+
+      <!-- Login Form (WITH forgot password) -->
+      <form id="login-form" class="form">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="login-email" placeholder="your.email@example.com" required>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="login-password" placeholder="Enter your password" required>
+        </div>
+        <button type="submit" class="btn">Sign In</button>
+      </form>
+    </div>
+
+    <div class="status" id="status"></div>
+    
+    <!-- Forgot Password - LOGIN ONLY -->
+    <div class="forgot" id="forgot-link">
+      <a href="#" onclick="resetPassword(event)">Forgot Password?</a>
+    </div>
+  </div>
+
+  <script>
+    let users = JSON.parse(localStorage.getItem('users')) || [];
+
+    function showStatus(msg, type = 'success') {
+      const status = document.getElementById('status');
+      if (!msg) {
+        status.style.display = 'none';
+        status.textContent = '';
+        return;
+      }
+      status.textContent = msg;
+      status.className = `status ${type}`;
+      status.style.display = 'block';
+      setTimeout(() => {
+        status.style.display = 'none';
+        status.textContent = '';
+      }, 3000);
+    }
+
+    function showTab(tab) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+      
+      document.querySelectorAll('.form').forEach(f => f.classList.remove('active'));
+      document.getElementById(tab + '-form').classList.add('active');
+      
+      // Hide forgot password on signup
+      const forgot = document.getElementById('forgot-link');
+      if (tab === 'login') {
+        forgot.classList.add('show');
+      } else {
+        forgot.classList.remove('show');
+      }
+    }
+
+    function resetPassword(e) {
+      e.preventDefault();
+      const email = prompt('Enter email to reset password:');
+      if (!email) return;
+      
+      const user = users.find(u => u.email === email);
+      if (!user) return showStatus('Email not found', 'error');
+      
+      const newPwd = prompt('Enter new password (min 6 chars):');
+      if (newPwd && newPwd.length >= 6) {
+        user.pwd = newPwd;
+        localStorage.setItem('users', JSON.stringify(users));
+        showStatus('✅ Password reset!');
+        document.getElementById('login-email').value = email;
+      } else {
+        showStatus('Invalid password', 'error');
+      }
+    }
+
+    // SIGNUP: Name + Email + Password → Redirect to index.html
+    document.getElementById('signup-form').addEventListener('submit', e => {
+      e.preventDefault();
+      const name = document.getElementById('signup-name').value.trim();
+      const email = document.getElementById('signup-email').value.trim();
+      const pwd = document.getElementById('signup-password').value;
+      
+      if (!name || !email || pwd.length < 6) {
+        showStatus('Fill all fields. Password ≥6 chars.', 'error');
+        return;
+      }
+      if (users.find(u => u.email === email)) {
+        showStatus('Email exists! Try login.', 'error');
+        return;
+      }
+      
+      users.push({name, email, pwd});
+      localStorage.setItem('users', JSON.stringify(users));
+      localStorage.setItem('currentUser', email);
+      showStatus('🎉 Signup success! Redirecting to main page');
+      setTimeout(() => window.location.href = 'index.html', 1500);
+    });
+
+    // LOGIN: Email + Password → Redirect to index.html  
+    document.getElementById('login-form').addEventListener('submit', e => {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value.trim();
+      const pwd = document.getElementById('login-password').value;
+      
+      if (!email || !pwd) {
+        showStatus('Enter email & password', 'error');
+        return;
+      }
+      
+      const user = users.find(u => u.email === email && u.pwd === pwd);
+      if (user) {
+        localStorage.setItem('currentUser', email);
+        showStatus(`🎉 Welcome ${user.name}! Redirecting to main page`);
+        setTimeout(() => window.location.href = 'index.html', 1500);
+      } else {
+        showStatus('❌ Invalid credentials', 'error');
+      }
+    });
+
+    // Auto-redirect if already logged in
+    const currentUser = localStorage.getItem('currentUser');
+    if (currentUser) {
+      const user = users.find(u => u.email === currentUser);
+      if (user) {
+        showStatus(`Welcome ${user.name}! Redirecting...`);
+        setTimeout(() => window.location.href = 'index.html', 1000);
+      }
+    }
+  </script>
+</body>
+</html>
+
