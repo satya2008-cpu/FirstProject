@@ -22,17 +22,23 @@ function logout() {
 
 function initAuthNav() {
   const navUl = document.querySelector('nav ul');
-  if (navUl) {
-    if (isLoggedIn()) {
-      navUl.innerHTML = navUl.innerHTML.replace(/<\/li>$/, '') + `<li><a href="#" onclick="logout()" class="logout-link">Logout</a></li>`;
-      const intro = document.querySelector('.intro');
-      if (intro) {
-        intro.textContent = `Welcome ${getCurrentUserName()}!`;
-      }
+  const isHomePage = location.pathname.endsWith('/') || location.pathname.endsWith('/index.html');
+
+  // Send visitors who open the CV/demo URL to the login page first.
+  // Logged-in users can still return to the home page after signing in.
+  if (!isLoggedIn() && isHomePage) {
+    location.replace('ultimate-login.html');
+    return;
+  }
+
+  if (navUl && isLoggedIn()) {
+    navUl.innerHTML = navUl.innerHTML.replace(/<\/li>$/, '') + `<li><a href="#" onclick="logout()" class="logout-link">Logout</a></li>`;
+    const intro = document.querySelector('.intro');
+    if (intro) {
+      intro.textContent = `Welcome ${getCurrentUserName()}!`;
     }
   }
 }
 
 // Load on DOM ready
 document.addEventListener('DOMContentLoaded', initAuthNav);
-
