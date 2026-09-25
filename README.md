@@ -1,109 +1,143 @@
 # College Desk
 
-College Desk is a client-side educational resource website for college students. It brings together beginner-friendly HTML, CSS, and JavaScript documentation links and tutorial videos in one responsive interface, with a demo login/signup flow, a contact form, and a shared navigation layout.
+College Desk is a client-side educational resource platform designed to help college students access introductory web-development materials in one place. The application provides curated documentation and tutorial links for HTML, CSS, and JavaScript through a responsive, modern user interface.
 
-> **Status:** This is a front-end demo. Authentication and contact submission are implemented with browser-side JavaScript only; no backend or database is included.
+> **Project status:** College Desk is a front-end demonstration project. Authentication, password recovery, and contact submission are simulated in the browser using JavaScript and `localStorage`. The project does not include a backend, database, or production-grade authentication system.
 
-## Features
+## Overview
 
-- Landing page with an overview of the College Desk resource hub
-- Topic-based learning resources for:
-  - HTML
-  - CSS
-  - JavaScript
-- Links to MDN documentation and curated YouTube tutorials
-- Responsive layouts for desktop and mobile screens
-- Demo sign-up and login forms
-- Demo password-reset flow
-- Session-like login state stored in `localStorage`
-- Personalized welcome message and logout navigation
-- Contact form with demo feedback behavior
-- Animated and themed UI using CSS transitions, gradients, shadows, and responsive styling
+The application offers a simple learning-resource hub with the following primary areas:
 
-## Pages and navigation
+- A landing page introducing the platform
+- Topic-based educational resources for HTML, CSS, and JavaScript
+- Links to selected MDN Web Docs pages and YouTube tutorials
+- Demo account registration and login functionality
+- A browser-based password-reset demonstration
+- Personalized login state and navigation behavior
+- A front-end contact form with demonstration feedback
+- Responsive layouts for desktop, tablet, and mobile devices
+- Modern visual styling with gradients, glassmorphism effects, transitions, shadows, and hover states
 
-| Page | File | Purpose |
+## Application pages
+
+| Page | File | Description |
 | --- | --- | --- |
-| Login / signup | `ultimate-login.html` | Creates users, signs users in, and provides the demo password-reset flow. |
-| Home | `index.html` | Introduces College Desk and links to the learning topics. |
-| Resources | `resources.html` | Displays HTML, CSS, and JavaScript explanations and video links. |
-| Contact | `contact.html` | Collects a name, email, and message in a front-end demo form. |
+| Login and registration | `ultimate-login.html` | Provides demo account creation, login, and password-reset functionality. |
+| Home | `index.html` | Introduces College Desk and provides links to the learning topics. |
+| Resources | `resources.html` | Presents explanations, documentation links, and tutorial videos for HTML, CSS, and JavaScript. |
+| Contact | `contact.html` | Provides a front-end contact form for demonstration purposes. |
 
 ## Project structure
 
 ```text
 .
-├── ultimate-login.html  # Login and signup interface; stores demo users in localStorage
-├── index.html           # College Desk home page
+├── ultimate-login.html  # Login, registration, and password-reset interface
+├── index.html           # College Desk landing page
 ├── resources.html       # HTML, CSS, and JavaScript learning resources
-├── contact.html         # Contact form demo
+├── contact.html         # Demonstration contact form
 ├── auth.js              # Shared login-state, welcome-message, and logout behavior
-├── animations.js        # Optional contact-form animation/feedback handler
-├── style.css            # Main page and contact-page styles
-├── style2.css           # Resource-page styles and topic-tab presentation
-├── image2.jpg           # Background image used throughout the site
-└── README.md
+├── animations.js        # Optional contact-form animation and feedback behavior
+├── style.css            # Shared styles for the home and contact pages
+├── style2.css           # Styles for the resources page and topic tabs
+├── image2.jpg           # Background image used throughout the website
+└── README.md            # Project documentation
 ```
 
-## How it works
+## Functional behavior
 
-`ultimate-login.html` keeps a list of demo users in browser `localStorage` under `users` and records the active email under `currentUser`. After signup or login, the user is redirected to `index.html`. The shared `auth.js` script runs on the main pages, updates the navigation with a logout link, and personalizes the home-page greeting.
+### Authentication demonstration
 
-The resource page uses CSS-only topic selection: radio inputs and sibling selectors in `style2.css` show the selected HTML, CSS, or JavaScript content section. The contact page prevents a real submission and displays a thank-you alert, so messages are not sent to a server.
+`ultimate-login.html` stores demo user records in the browser's `localStorage` under the `users` key. The email address of the currently active user is stored under `currentUser`. After a successful registration or login, the user is redirected to `index.html`.
 
-## Run locally
+The shared `auth.js` file uses the stored login state to provide personalized navigation behavior, display a welcome message, and support logout.
 
-No build step or package installation is required. The project is made of static HTML, CSS, JavaScript, and image files.
+### Resource navigation
 
-### Option 1: Open directly
+The resources page uses CSS-only topic selection. Hidden radio inputs and sibling selectors in `style2.css` control the visibility of the HTML, CSS, and JavaScript sections without requiring additional JavaScript logic.
 
-Open `ultimate-login.html` in a modern browser.
+### Contact form
+
+The contact form prevents a real network submission and displays demonstration feedback in the browser. No contact messages are sent to a server or stored in a database.
+
+## Local development
+
+The project is composed of static HTML, CSS, JavaScript, and image files. No build process, package manager, or dependency installation is required.
+
+### Option 1: Open the project directly
+
+Open `ultimate-login.html` in a modern web browser.
 
 ### Option 2: Use a local static server
 
-From the repository root, run one of the following:
+From the repository root, run:
 
 ```bash
-# Python 3
 python3 -m http.server 8000
 ```
 
-Then open <http://localhost:8000/ultimate-login.html>.
+Then open the following address in your browser:
 
-If you use VS Code, the Live Server extension can also serve the repository root.
+<http://localhost:8000/ultimate-login.html>
 
-## Demo usage
+Alternatively, the repository can be served using the Live Server extension in Visual Studio Code.
+
+## Demonstration workflow
 
 1. Open `ultimate-login.html`.
-2. Select **Sign Up** and create an account using a password with at least six characters.
-3. After signup, explore the home page and the **Resources** page.
-4. Use **Contact** to try the demo contact form.
-5. Use **Logout** in the navigation to return to the login page.
+2. Select **Sign Up** and create a demo account with a password of at least six characters.
+3. Explore the home page after registration.
+4. Open the **Resources** page and select a topic.
+5. Use the **Contact** page to test the demonstration form.
+6. Select **Logout** to return to the login page.
 
-To clear the demo account data, open the browser developer console and run:
+To remove all demonstration account data, open the browser developer console and run:
 
 ```js
-localStorage.clear()
+localStorage.clear();
 ```
 
-## Technology
+## Technologies and resources
 
 - HTML5
-- CSS3, including responsive media queries, transitions, gradients, and CSS-only resource tabs
+- CSS3
 - Vanilla JavaScript
 - Browser `localStorage`
-- Google Fonts: Montserrat and Ms Madi
-- External MDN and YouTube resource links
+- Responsive media queries
+- CSS transitions and animations
+- CSS gradients and glassmorphism styling
+- Google Fonts: DM Sans and Space Grotesk
+- MDN Web Docs
+- YouTube tutorial resources
 
-## Important security note
+## Security and privacy notice
 
-This project is suitable for learning and front-end demonstrations only. Passwords are stored as plain text in `localStorage`, and there is no server-side authentication, password hashing, authorization, or secure password recovery. Do not use real passwords or personal information with this demo. A production version should use a backend authentication service, hashed passwords, HTTPS, server-side validation, and a real contact endpoint.
+This project is intended for educational and front-end demonstration purposes only. It must not be used as a production authentication system.
 
-## Future improvements
+The current implementation has the following limitations:
 
-- Add a backend for authentication and contact-message delivery
-- Hash passwords and replace `localStorage` authentication with secure sessions
-- Add form validation and accessible error messaging
-- Move inline styles and scripts into dedicated files
-- Add automated tests and a deployment workflow
-- Add more subjects, search, filtering, and progress tracking
+- Passwords are stored as plain text in `localStorage`.
+- Authentication is performed entirely in the browser.
+- There is no password hashing or server-side session management.
+- User data can be viewed or modified through browser developer tools.
+- The password-reset feature does not verify user identity through email.
+- Contact form submissions are not delivered to a server or stored permanently.
+
+Do not use real passwords, personal information, or sensitive data while testing the application.
+
+## Potential improvements
+
+Future development could include:
+
+- Implementing a secure backend authentication service
+- Hashing passwords and using server-managed sessions
+- Adding email-based password recovery
+- Persisting contact messages through a backend service
+- Improving form validation and accessible error messaging
+- Moving remaining inline styles and scripts into dedicated files
+- Adding automated tests and continuous integration
+- Adding additional subjects, search, filtering, and progress tracking
+- Deploying the application through a production hosting platform
+
+## License
+
+No license has currently been specified for this project. Add an appropriate license file before distributing or reusing the project commercially.
